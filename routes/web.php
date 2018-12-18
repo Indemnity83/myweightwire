@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+Route::view('/account/approval', 'auth.approval')->name('approval.notice');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth', 'verified', 'approved'])
+    ->group(function () {
+        Route::get('/home', 'HomeController@index')->name('home');
+    });

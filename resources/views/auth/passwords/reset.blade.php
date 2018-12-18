@@ -1,65 +1,47 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+@section('body')
+    <div class="min-h-screen flex flex-col items-center justify-center bg-grey-lightest">
+        <div class="w-full max-w-sm">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+            <h2 class="mb-4 text-purple-light">{{ __('Reset Password') }}</h2>
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{{ route('password.update') }}">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                {{ csrf_field() }}
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
+                <input type="hidden" name="token" value="{{ $token }}">
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
+                        {{ __('E-Mail Address') }}
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline{{ $errors->has('email') ? 'border-red-dark' : 'border-grey-light' }}" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
+                    {!! $errors->first('email', '<p class="text-red text-xs italic">:message</p>') !!}
                 </div>
-            </div>
+
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
+                        {{ __('Password') }}
+                    </label>
+                    <input type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline{{ $errors->has('password') ? 'border-red-dark' : 'border-grey-light' }}" name="password" placeholder="**********" required>
+                    {!! $errors->first('password', '<p class="text-red text-xs italic">:message</p>') !!}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
+                        {{ __('Confirm Password') }}
+                    </label>
+                    <input type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline{{ $errors->has('password_confirmation') ? 'border-red-dark' : 'border-grey-light' }}" name="password_confirmation" placeholder="**********" required>
+                    {!! $errors->first('password_confirmation', '<p class="text-red text-xs italic">:message</p>') !!}
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        {{ __('Reset Password') }}
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 @endsection

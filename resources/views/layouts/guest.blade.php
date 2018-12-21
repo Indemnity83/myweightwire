@@ -21,7 +21,18 @@
 </head>
 <body class="font-sans antialiased text-black leading-tight">
 <div id="app">
-    @yield('body')
+    <div class="mb-16">
+        @yield('body')
+    </div>
+
+    <div class="fixed w-full text-center border-t border-grey-lighter bg-white p-4 h-16 pin-b">
+        <a href="/privacy" class="mx-1 text-sm text-grey hover:text-purple py-2 px-1">
+            Privacy Policy
+        </a>
+        <a href="/terms" class="mx-1 text-sm text-grey hover:text-purple py-2 px-1">
+            Terms of Service
+        </a>
+    </div>
 </div>
 <script src="{{ mix('js/app.js') }}"></script>
 </body>

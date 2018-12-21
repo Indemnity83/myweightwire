@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 Route::view('/account/approval', 'auth.approval')->name('approval.notice');
 
+Route::view('/privacy', 'privacy');
+Route::view('/terms', 'terms');
+
 Route::middleware(['auth', 'verified', 'approved'])
     ->group(function () {
         Route::get('/home', 'HomeController@index')->name('home');

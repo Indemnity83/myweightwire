@@ -41,6 +41,14 @@
                     {!! $errors->first('password_confirmation', '<p class="text-red text-xs italic">:message</p>') !!}
                 </div>
 
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2">
+                        <span class="text-sm">
+                        By clicking Register, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
+                        </span>
+                    </label>
+                </div>
+
                 <div class="flex items-center justify-between">
                     <button class="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         {{ __('Register') }}

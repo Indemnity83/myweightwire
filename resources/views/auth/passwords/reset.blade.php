@@ -4,7 +4,13 @@
     <div class="min-h-screen flex flex-col items-center justify-center bg-grey-lightest">
         <div class="w-full max-w-sm">
 
-            <h2 class="mb-4 text-purple-light">{{ __('Reset Password') }}</h2>
+            <nav class="w-full mb-4 text-2xl">
+                <ol class="list-reset flex text-grey-dark">
+                    <li><a href="/" class="text-purple-light font-bold"><i class="fas fa-home"></i></a></li>
+                    <li><span class="mx-2">/</span></li>
+                    <li>{{ __('Reset Password') }}</li>
+                </ol>
+            </nav>
 
             <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{{ route('password.update') }}">
 

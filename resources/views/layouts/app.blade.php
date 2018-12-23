@@ -15,14 +15,15 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="font-sans antialiased text-black leading-tight">
+<body class="font-sans antialiased text-black leading-tight bg-grey-lightest">
 <div id="app">
 
-    <header class="w-full font-sans border-b-2 border-grey-lighter">
+    <header class="w-full font-sans border-b-2 border-grey-lighter bg-white">
         <nav class="container mx-auto flex items-center justify-between flex-wrap py-3">
             <div class="flex items-center flex-no-shrink text-white mr-6">
                 <h1 class="text-black text-2xl p-2 align-middle font-sans relative pl-8">
@@ -41,6 +42,9 @@
                 <div class="lg:flex-grow">
                     <a href="{{ route('home') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
                         Dashboard
+                    </a>
+                    <a href="{{ route('weighins.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
+                        Weigh-ins
                     </a>
                     <a href="javascript:;" onclick="document.getElementById('logoutForm').submit();" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
                         Log Out

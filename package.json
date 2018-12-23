@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.18",
+        "chart.js": "^2.7.3",
         "cross-env": "^5.1",
         "laravel-mix": "^4.0.7",
         "laravel-mix-purgecss": "^3.0.0",
@@ -18,7 +19,9 @@
         "postcss-import": "^12.0.1",
         "postcss-nesting": "^7.0.0",
         "tailwindcss": "^0.7.3",
+        "tailwindcss-tables": "^0.2.0",
         "vue": "^2.5.17",
+        "vue-chartjs": "^3.4.0",
         "vue-template-compiler": "^2.5.21"
     }
 }

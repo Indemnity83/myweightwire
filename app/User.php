@@ -45,6 +45,16 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The users weighins.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function weighins()
+    {
+        return $this->hasMany(Weighin::class);
+    }
+
+    /**
      * Limit query to admin users.
      *
      * @param Builder $query

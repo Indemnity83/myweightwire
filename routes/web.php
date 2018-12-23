@@ -24,4 +24,5 @@ Route::view('/terms', 'terms');
 Route::middleware(['auth', 'verified', 'approved'])
     ->group(function () {
         Route::get('/home', 'HomeController@index')->name('home');
+        Route::resource('/weighins', 'WeighinController')->only(['index', 'store', 'destroy']);
     });

@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use App\Nova\Actions\ApproveAccount;
+use App\Nova\Actions\SendPasswordReset;
 
 class User extends Resource
 {
@@ -96,6 +97,7 @@ class User extends Resource
     {
         return [
             new ApproveAccount,
+            new SendPasswordReset,
         ];
     }
 }

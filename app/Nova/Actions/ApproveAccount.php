@@ -22,6 +22,10 @@ class ApproveAccount extends Action
      */
     public function handle(ActionFields $fields, Collection $users)
     {
-        $users->each->markAccountAsApproved();
+        $users->each(function ($user) {
+            /* @var \App\User $user */
+            $user->setApproved();
+            $this->markAsFinished($user);
+        });
     }
 }

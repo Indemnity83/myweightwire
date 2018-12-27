@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\AccountApproved;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -78,12 +79,14 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Mark the given user's account as approved.
      *
-     * @return bool
+     * @throws \Throwable
      */
-    public function markAccountAsApproved()
+    public function setApproved()
     {
-        return $this->forceFill([
+        $this->forceFill([
             'approved_at' => $this->freshTimestamp(),
-        ])->save();
+        ])->saveOrFail();
+
+        $this->notify(new AccountApproved);
     }
 }

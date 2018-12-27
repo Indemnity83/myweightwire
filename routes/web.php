@@ -11,13 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes(['verify' => true]);
-Route::view('/account/approval', 'auth.approval')->name('approval.notice');
 
+Route::view('/', 'welcome');
+Route::view('/account/approval', 'auth.approval')->name('approval.notice');
 Route::view('/privacy', 'privacy');
 Route::view('/terms', 'terms');
 

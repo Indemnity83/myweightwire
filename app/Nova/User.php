@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use App\Nova\Actions\ApproveAccount;
 use App\Nova\Actions\SendPasswordReset;
+use App\Nova\Actions\SendEmailVerification;
 
 class User extends Resource
 {
@@ -98,6 +99,7 @@ class User extends Resource
         return [
             new ApproveAccount,
             new SendPasswordReset,
+            new SendEmailVerification,
         ];
     }
 }

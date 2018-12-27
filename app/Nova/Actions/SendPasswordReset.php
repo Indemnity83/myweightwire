@@ -25,15 +25,16 @@ class SendPasswordReset extends Action implements ShouldQueue
      * Perform the action on the given models.
      *
      * @param \Laravel\Nova\Fields\ActionFields $fields
-     * @param \Illuminate\Support\Collection    $models
+     * @param \Illuminate\Support\Collection    $users
      *
      * @return mixed
      */
-    public function handle(ActionFields $fields, Collection $models)
+    public function handle(ActionFields $fields, Collection $users)
     {
-        $models->each(function ($model) {
-            $this->broker()->sendResetLink($model->only('email'));
-            $this->markAsFinished($model);
+        $users->each(function ($user) {
+            /* @var \App\User $user */
+            $this->broker()->sendResetLink($user->only('email'));
+            $this->markAsFinished($user);
         });
     }
 

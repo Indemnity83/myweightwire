@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int week_number
  * @property int first_user_id
  * @property int second_user_id
+ * @property \App\Competition competition
  */
 class Matchup extends Model
 {
@@ -74,5 +75,19 @@ class Matchup extends Model
     public function scopeForWeek(Builder $query, $week)
     {
         return $query->where('week_number', $week);
+    }
+
+    public function getStartsOnAttribute()
+    {
+        return $this->competition
+            ->starts_on
+            ->addWeeks($this->week_number - 1);
+    }
+
+    public function getEndsOnAttribute()
+    {
+        return $this->competition
+            ->starts_on
+            ->addWeeks($this->week_number);
     }
 }

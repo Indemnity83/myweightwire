@@ -83,7 +83,7 @@ class Weighin extends Model
      * @param $weighed_at
      * @return Builder|\Illuminate\Database\Query\Builder
      */
-    public function scopeWeighedOn(Builder $query, $weighed_at)
+    public function scopeOn(Builder $query, $weighed_at)
     {
         return $query->whereDate('weighed_at', $weighed_at);
     }

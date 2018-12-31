@@ -43,6 +43,9 @@
                     <a href="{{ route('home') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
                         Dashboard
                     </a>
+                    <a href="{{ route('competitions.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
+                        Competitions
+                    </a>
                     <a href="{{ route('weighins.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
                         Weigh-ins
                     </a>

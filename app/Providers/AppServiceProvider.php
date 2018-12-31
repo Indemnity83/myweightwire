@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Collection::macro('rotate', function () {
+            $item = $this->shift();
+            $this->push($item);
+
+            return $this;
+        });
+
+        Collection::macro('choose', function ($number) {
+        });
     }
 }

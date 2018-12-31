@@ -45,6 +45,43 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Order by name ASC
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('name', 'asc');
+        });
+
+        // Cascade Delete
+        static::deleting(function (self $user) {
+            $user->matchups()->detach();
+            $user->competitions()->detach();
+            $user->weighins->each->delete();
+        });
+    }
+
+    /**
+     * The users competitions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function competitions()
+    {
+        return $this->belongsToMany(Competition::class, 'competitors');
+    }
+
+    /**
+     * The users matchups.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function matchups()
+    {
+        return $this->belongsToMany(Matchup::class, 'user_matchups');
+    }
+
     /**
      * The users weighins.
      *

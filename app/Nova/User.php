@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use App\Nova\Actions\ApproveAccount;
+use Laravel\Nova\Fields\BelongsToMany;
 use App\Nova\Actions\SendPasswordReset;
 use App\Nova\Actions\SendEmailVerification;
 
@@ -83,6 +84,10 @@ class User extends Resource
             })->onlyOnIndex(),
 
             Boolean::make('Admin', 'is_admin'),
+
+            BelongsToMany::make('Competitions'),
+
+            BelongsToMany::make('Matchups'),
 
             HasMany::make('Weighins'),
         ];

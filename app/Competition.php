@@ -62,14 +62,47 @@ class Competition extends Model
      */
     public function generateRandomMatchups($seed = null)
     {
-        $users = $this->users->shuffle($seed);
-        $rounds = roundRobin($users, optional());
+        // Shuffle the users, this is the only "random" part
+        $competitors = $this->users->shuffle($seed);
 
-        $rounds->take($this->duration)->each(function ($round, $key) {
-            $round->each(function ($comptetitors) use ($key) {
-                $matchup = $this->matchups()->create(['week_number' => $key + 1]);
+        // If there are an odd number of competitors, a dummy competitor can be added,
+        // whose scheduled opponent in a given round does not play and has a bye.
+        if ($competitors->count() % 2 === 1) {
+            $competitors->push(new User);
+        }
+
+        // Competitors are split into two groups
+        /** @var \Illuminate\Support\Collection $groupA */
+        /** @var \Illuminate\Support\Collection $groupB */
+        [$groupA, $groupB] = $competitors->split(2);
+
+        // For the first round, players from each group are matched up
+        $groupA->zip($groupB)->each(function ($comptetitors) {
+            $matchup = $this->matchups()->create(['week_number' => 1]);
+            $matchup->users()->attach($comptetitors->pluck('id')->all());
+        });
+
+        // For the remaining rounds the first player is fixed, and all other
+        // players rotate clockwise before being matched up again.
+        foreach (range(2, $this->duration) as $week_number) {
+            // Shift the first player off the list, they will remain fixed in position 1
+            $fixedPlayer = $groupA->shift();
+
+            // Rotate the remaining players clockwise by placing the last item from groupA
+            // at the end of groupB
+            $groupB->push($groupA->pop());
+
+            // Then placing the first item from groupB to the beginning of groupA
+            $groupA->prepend($groupB->shift());
+
+            // Put the fixed player back at the beginning of groupA
+            $groupA->prepend($fixedPlayer);
+
+            // And finally, players from each group are matched up
+            $groupA->zip($groupB)->each(function ($comptetitors) use ($week_number) {
+                $matchup = $this->matchups()->create(['week_number' => $week_number]);
                 $matchup->users()->attach($comptetitors->pluck('id')->all());
             });
-        });
+        }
     }
 }

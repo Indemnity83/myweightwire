@@ -49,6 +49,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Date</th>
                         <th scope="col">Weight</th>
+                        <th scope="col">% Change</th>
                         <th scope="col">&nbsp;</th>
                     </tr>
                     </thead>
@@ -56,8 +57,15 @@
                     @foreach($weighins as $weighin)
                     <tr>
                         <th scope="row">{{ $weighin->id }}</th>
-                        <td>{{ $weighin->weighed_at }}</td>
+                        <td>{{ $weighin->weighed_at->diffForHumans() }}</td>
                         <td>{{ $weighin->weight }} lbs</td>
+                        @if($weighin->loss === null)
+                            <td class="text-grey">&mdash;</td>
+                        @elseif($weighin->loss >= 0)
+                            <td class="text-red-dark">{{ $weighin->loss }}%</td>
+                        @else()
+                            <td class="text-green-dark">{{ $weighin->loss }}%</td>
+                        @endif
                         <td class="text-right">
                             <form method="post" action="{{ route('weighins.destroy', $weighin) }}">
                                 @csrf

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Weighin;
+use App\Observers\WeighinObserver;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Weighin::observe(WeighinObserver::class);
     }
 
     /**

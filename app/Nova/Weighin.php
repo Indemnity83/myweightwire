@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
+use App\Nova\Actions\UpdateLoss;
 use Laravel\Nova\Fields\BelongsTo;
 
 class Weighin extends Resource
@@ -54,40 +55,11 @@ class Weighin extends Resource
             Number::make('Weight')
                 ->rules(['required', 'numeric', 'between:100,300'])
                 ->step(0.1),
+
+            Number::make('Loss')
+                ->rules(['optional', 'numeric', 'between:-1,1'])
+                ->step(0.01),
         ];
-    }
-
-    /**
-     * Get the cards available for the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function cards(Request $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the filters available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function filters(Request $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the lenses available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function lenses(Request $request)
-    {
-        return [];
     }
 
     /**
@@ -98,6 +70,8 @@ class Weighin extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new UpdateLoss,
+        ];
     }
 }

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property User user
+ * @property int user_id
+ * @property \Carbon\Carbon weighed_at
+ * @property float weight
+ * @property float|null loss
  */
 class Weighin extends Model
 {
@@ -18,6 +22,7 @@ class Weighin extends Model
      */
     protected $casts = [
         'weighed_at' => 'date',
+        'loss' => 'decimal:2',
     ];
 
     /**
@@ -28,6 +33,7 @@ class Weighin extends Model
     protected $fillable = [
         'weighed_at',
         'weight',
+        'loss',
     ];
 
     /**
@@ -100,6 +106,32 @@ class Weighin extends Model
         return $query->whereDate('weighed_at', '<=', $weighed_at)
             ->withoutGlobalScope('order')
             ->orderBy('weighed_at', 'desc');
+    }
+
+    /**
+     * Limit query dates prior to (non-inclusive) the given date.
+     *
+     * @param Builder $query
+     * @param $weighed_at
+     * @return Builder|\Illuminate\Database\Query\Builder
+     */
+    public function scopePriorTo(Builder $query, $weighed_at)
+    {
+        return $query->whereDate('weighed_at', '<', $weighed_at)
+            ->withoutGlobalScope('order')
+            ->orderBy('weighed_at', 'desc');
+    }
+
+    /**
+     * Limit query dates after (non-inclusive) the given date.
+     *
+     * @param Builder $query
+     * @param $weighed_at
+     * @return Builder|\Illuminate\Database\Query\Builder
+     */
+    public function scopeAfter(Builder $query, $weighed_at)
+    {
+        return $query->whereDate('weighed_at', '>', $weighed_at);
     }
 
     /**

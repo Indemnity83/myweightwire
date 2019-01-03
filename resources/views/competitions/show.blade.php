@@ -14,7 +14,8 @@
         </ul>
 
         <div class="w-2/5 bg-white shadow-md rounded">
-            <span class="block p-4 w-full   text-center text-2xl text-purple-dark">VS</span>
+            <span class="block p-4 w-full
+            text-center text-2xl text-purple-dark">VS</span>
             @foreach($matchups as $matchup)
             <div class="flex content-center justify-center mb-4">
                 @foreach($matchup->users as $user)

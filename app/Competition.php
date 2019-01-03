@@ -63,16 +63,13 @@ class Competition extends Model
     public function generateRandomMatchups($seed = null)
     {
         $users = $this->users->shuffle($seed);
+        $rounds = roundRobin($users, optional());
 
-        foreach (range(1, $this->duration) as $week_number) {
-            $users->chunk(2)->each(function ($competitors) use ($week_number) {
-                $matchup = $this->matchups()->create(['week_number' => $week_number]);
-                $matchup->users()->attach($competitors->pluck('id'));
+        $rounds->take($this->duration)->each(function ($round, $key) {
+            $round->each(function ($comptetitors) use ($key) {
+                $matchup = $this->matchups()->create(['week_number' => $key + 1]);
+                $matchup->users()->attach($comptetitors->pluck('id')->all());
             });
-
-            $firstUser = $users->shift();
-            $secondUser = $users->shift();
-            $users = $users->prepend($firstUser)->push($secondUser);
-        }
+        });
     }
 }

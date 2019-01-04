@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('body')
-    <div class="w-full">
+    <div class="w-full mb-6">
 
         <ul class="flex justify-between px-8 list-reset w-auto">
             @foreach(range(1, $competition->duration) as $week)
@@ -47,5 +47,23 @@
                 ></line-chart>
             </div>
         </div>
+    </div>
+
+    <div class="w-full ">
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = '{{ request()->url() }}';
+                this.page.identifier = '{{ md5("competition.{$competition->id}") }}';
+            };
+
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://myweighwire.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 @endsection

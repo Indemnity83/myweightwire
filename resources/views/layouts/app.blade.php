@@ -80,5 +80,6 @@
         </p>
     </div>
 
+    <script id="dsq-count-scr" src="//myweighwire.disqus.com/count.js" async></script>
 </div>
 </body>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Competition;
+use Illuminate\Http\Request;
 
 class CompetitionController extends Controller
 {
@@ -30,10 +31,15 @@ class CompetitionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->user()->competitions->count() === 1) {
+            return redirect()->route('competitions.show', $request->user()->competitions->first());
+        }
+
         return view('competitions.index', [
            'competitions' => Competition::all(),
         ]);

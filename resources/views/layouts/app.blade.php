@@ -40,9 +40,9 @@
             </div>
             <div class="w-full block text-right flex-grow lg:flex lg:items-center lg:w-auto">
                 <div class="lg:flex-grow">
-                    <a href="{{ route('home') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
-                        Dashboard
-                    </a>
+                    {{--<a href="{{ route('home') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">--}}
+                        {{--Dashboard--}}
+                    {{--</a>--}}
                     <a href="{{ route('competitions.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-dark hover:text-grey-darker no-underline mr-6">
                         Competitions
                     </a>

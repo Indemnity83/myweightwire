@@ -109,6 +109,19 @@ class Weighin extends Model
     }
 
     /**
+     * Limit query dates between (inclusive) two dates.
+     *
+     * @param Builder $query
+     * @param Carbon $start
+     * @param Carbon $end
+     * @return Builder|\Illuminate\Database\Query\Builder
+     */
+    public function scopeBetween(Builder $query, $start, $end)
+    {
+        return $query->whereBetween('weighed_at', [$start, $end]);
+    }
+
+    /**
      * Limit query dates prior to (non-inclusive) the given date.
      *
      * @param Builder $query

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property \Carbon\Carbon starts_on
+ * @property \Carbon\Carbon ends_on
  * @property int duration
  * @property \Illuminate\Database\Eloquent\Collection users
  */
@@ -53,6 +54,16 @@ class Competition extends Model
     public function matchups()
     {
         return $this->hasMany(Matchup::class);
+    }
+
+    /**
+     * The competition end date attribute.
+     *
+     * @return \Carbon\Carbon
+     */
+    public function getEndsOnAttribute()
+    {
+        return $this->starts_on->addWeeks($this->duration);
     }
 
     /**

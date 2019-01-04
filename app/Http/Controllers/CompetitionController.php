@@ -7,6 +7,27 @@ use App\Competition;
 class CompetitionController extends Controller
 {
     /**
+     * @var array
+     */
+    private $colorStack = [
+        '#e6194B',
+        '#3cb44b',
+        '#ffe119',
+        '#4363d8',
+        '#f58231',
+        '#42d4f4',
+        '#f032e6',
+        '#fabebe',
+        '#469990',
+        '#e6beff',
+        '#9A6324',
+        '#fffac8',
+        '#800000',
+        '#aaffc3',
+        '#000075',
+    ];
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -42,9 +63,40 @@ class CompetitionController extends Controller
             });
         });
 
+        $datasets = $competition->users->load(['weighins' => function ($query) use ($competition) {
+            $query->between($competition->starts_on, $competition->ends_on);
+        }])->map(function ($user) {
+            $color = $this->getNextColor();
+
+            return [
+                'label' => $user->name,
+                'backgroundColor' => $color,
+                'borderColor' => $color,
+                'fill' => false,
+                'data' => $user->weighins->map(function ($weighin) use ($user) {
+                    return [
+                        't' => $weighin->weighed_at->toDateString(),
+//                        'y' => $weighin->loss ?? 0,
+                        'y' => percentChange($user->weighins->first()->weight, $weighin->weight, 2) * -1,
+                    ];
+                }),
+            ];
+        });
+
         return view('competitions.show', [
             'competition' => $competition,
+            'chartdata' => [
+                'datasets' => $datasets,
+            ],
             'matchups' => $matchups,
         ]);
+    }
+
+    private function getNextColor()
+    {
+        $color = array_shift($this->colorStack);
+        array_push($this->colorStack, $color);
+
+        return $color;
     }
 }

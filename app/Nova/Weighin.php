@@ -47,7 +47,7 @@ class Weighin extends Resource
                 ->sortable(),
 
             BelongsTo::make('User')
-                ->rules(['require']),
+                ->rules(['required']),
 
             Date::make('Weighed At')
                 ->rules(['required', 'date']),
@@ -57,8 +57,7 @@ class Weighin extends Resource
                 ->step(0.1),
 
             Number::make('Loss')
-                ->rules(['optional', 'numeric', 'between:-1,1'])
-                ->step(0.01),
+                ->exceptOnForms(),
         ];
     }
 

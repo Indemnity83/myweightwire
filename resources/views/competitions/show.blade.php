@@ -19,7 +19,7 @@
                     Week {{ request()->query('week', 1) }} Matchups
                 </span>
                 @foreach($matchups as $matchup)
-                <div class="flex content-center justify-center mb-4">
+                <a href="{{ route('matchups.show', $matchup) }}" class="flex content-center justify-center mb-4 no-underline text-grey-darkest hover:bg-purple-lightest">
                     @foreach($matchup->users as $user)
                         <div class="flex matchup m-4 w-2/5">
                             <img class="mx-4" src="//gravatar.com/avatar/{{ md5($user->email) }}?s=50">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         @endforeach
-                </div>
+                </a>
                 @endforeach
             </div>
 

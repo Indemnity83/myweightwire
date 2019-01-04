@@ -23,4 +23,5 @@ Route::middleware(['auth', 'verified', 'approved'])
         Route::get('/home', 'HomeController@index')->name('home');
         Route::resource('/weighins', 'WeighinController')->only(['index', 'store', 'destroy']);
         Route::resource('/competitions', 'CompetitionController')->only(['index', 'show']);
+        Route::resource('/matchups', 'MatchupController')->only(['show']);
     });

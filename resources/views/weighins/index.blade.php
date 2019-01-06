@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('body')
-    <div class="flex mb-6">
-        <div class="w-1/3">
+    <div class="flex flex-col lg:flex-row mb-6">
+        <div class="w-full lg:w-1/3">
             <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mr-4" action="{{ route('weighins.store') }}" method="post">
                 @csrf
                 <div class="mb-4">
@@ -29,7 +29,7 @@
             </form>
         </div>
 
-        <div class="w-2/3">
+        <div class="w-full lg:w-2/3">
             <div class="bg-white shadow-md rounded mb-4 p-4">
                 {{--<personal-weight-chart></personal-weight-chart>--}}
                 <line-chart

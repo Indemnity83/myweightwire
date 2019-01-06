@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int first_user_id
  * @property int second_user_id
  * @property \App\Competition competition
+ * @property \Illuminate\Support\Collection users
  */
 class Matchup extends Model
 {

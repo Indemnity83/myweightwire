@@ -74,7 +74,9 @@ class Competition extends Model
      */
     public function getCurrentWeekAttribute()
     {
-        return $this->starts_on->diffInWeeks(today()) + 1;
+        $week = $this->starts_on->diffInWeeks(today()) + 1;
+
+        return min($week, $this->duration);
     }
 
     /**

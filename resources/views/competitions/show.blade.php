@@ -7,13 +7,13 @@
             @foreach(range(1, $competition->duration) as $week)
                 @if(request()->query('week', 1) == $week)
                     <li>
-                        <span class="block lg:text-xl bg-purple-dark mb-8 text-purple-lightest no-underline px-3 py-2">
+                        <span class="rounded block lg:text-xl bg-purple-dark mb-8 text-purple-lightest no-underline px-3 py-2">
                         W<span class="hidden sm:inline">eek</span> {{ $week }}
                         </span>
                     </li>
                 @else
                     <li>
-                        <a class="block lg:text-xl mb-8 hover:text-purple-light text-purple-dark no-underline px-3 py-2" href="{{ route('competitions.show', ['competition' => $competition, 'week' => $week]) }}">
+                        <a class="rounded block lg:text-xl mb-8 bg-grey-light hover:bg-purple-dark hover:text-purple-lightest text-purple-dark no-underline px-3 py-2" href="{{ route('competitions.show', ['competition' => $competition, 'week' => $week]) }}">
                             W<span class="hidden sm:inline">eek</span> {{ $week }}
                         </a>
                     </li>

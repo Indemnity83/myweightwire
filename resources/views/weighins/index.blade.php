@@ -9,7 +9,7 @@
                     <label class="block text-grey-darker text-sm font-bold mb-2" for="weight">
                         Weight
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline {{ $errors->has('weight') ? 'border-red mb-3' : '' }}" id="weight" type="number" step="0.1" name="weight" value="{{ old('weight') }}">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline {{ $errors->has('weight') ? 'border-red mb-3' : '' }}" id="weight" type="number" step="0.1" name="weight" value="{{ old('weight', request()->user()->todaysWeight) }}">
                     @if ($errors->has('weight'))
                         <p class="text-red text-xs italic">{{ $errors->first('weight') }}</p>
                     @endif

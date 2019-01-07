@@ -104,6 +104,18 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get today's weight as an attribute.
+     *
+     * @return mixed
+     */
+    public function getTodaysWeightAttribute()
+    {
+        $todaysWeighin = $this->weighins()->on(today())->first();
+
+        return optional($todaysWeighin)->weight;
+    }
+
+    /**
      * Determine if the account has been approved.
      *
      * @return bool

@@ -5,7 +5,7 @@
 
         <ul class="flex justify-between list-reset w-auto">
             @foreach(range(1, $competition->duration) as $week)
-                @if(request()->query('week', 1) == $week)
+                @if(request()->query('week', $competition->currentWeek) == $week)
                     <li>
                         <span class="rounded block lg:text-xl bg-purple-dark mb-8 text-purple-lightest no-underline px-3 py-2">
                         W<span class="hidden sm:inline">eek</span> {{ $week }}
@@ -24,7 +24,7 @@
         <div class="flex flex-col lg:flex-row justify-between">
             <div class="w-full lg:w-2/5 bg-white shadow-md rounded mb-6 mr-6">
                 <span class="block p-4 w-full text-center text-2xl text-purple-dark">
-                    Week {{ request()->query('week', 1) }} Matchups
+                    Week {{ request()->query('week', $competition->currentWeek) }} Matchups
                 </span>
                 @foreach($matchups as $matchup)
                 <a href="{{ route('matchups.show', $matchup) }}" class="flex content-center justify-center mb-4 no-underline text-grey-darkest hover:bg-purple-lightest">

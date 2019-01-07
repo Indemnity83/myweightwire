@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon ends_on
  * @property int duration
  * @property \Illuminate\Database\Eloquent\Collection users
+ * @property int currentWeek
  */
 class Competition extends Model
 {
@@ -64,6 +65,16 @@ class Competition extends Model
     public function getEndsOnAttribute()
     {
         return $this->starts_on->addWeeks($this->duration);
+    }
+
+    /**
+     * The current week of the competition.
+     *
+     * @return int
+     */
+    public function getCurrentWeekAttribute()
+    {
+        return $this->starts_on->diffInWeeks(today()) + 1;
     }
 
     /**

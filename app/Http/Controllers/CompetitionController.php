@@ -56,7 +56,7 @@ class CompetitionController extends Controller
         $matchups = $competition
             ->matchups()
             ->with('users', 'competition')
-            ->forWeek(request('week', 1))
+            ->forWeek(request('week', $competition->currentWeek))
             ->get();
 
         $matchups->map(function ($matchup) {

@@ -89,9 +89,15 @@ class CompetitionController extends Controller
             ];
         });
 
+        $labels = [];
+        foreach (range(0, $competition->duration + 1) as $week) {
+            $labels[] = $competition->starts_on->addWeeks($week)->toDateString();
+        }
+
         return view('competitions.show', [
             'competition' => $competition,
             'chartdata' => [
+                'labels' => $labels,
                 'datasets' => $datasets,
             ],
             'matchups' => $matchups,

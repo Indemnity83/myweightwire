@@ -3,12 +3,20 @@
 @section('body')
     <div class="w-full mb-6">
 
-        <ul class="flex justify-between px-8 list-reset w-auto">
+        <ul class="flex justify-between list-reset w-auto">
             @foreach(range(1, $competition->duration) as $week)
                 @if(request()->query('week', 1) == $week)
-                    <li><span class="block lg:text-xl bg-purple-dark mb-8 text-purple-lightest no-underline px-3 py-2">Week {{ $week }}</span></li>
+                    <li>
+                        <span class="block lg:text-xl bg-purple-dark mb-8 text-purple-lightest no-underline px-3 py-2">
+                        W<span class="hidden sm:inline">eek</span> {{ $week }}
+                        </span>
+                    </li>
                 @else
-                    <li><a class="block lg:text-xl mb-8 hover:text-purple-light text-purple-dark no-underline px-3 py-2" href="{{ route('competitions.show', ['competition' => $competition, 'week' => $week]) }}">Week {{ $week }}</a></li>
+                    <li>
+                        <a class="block lg:text-xl mb-8 hover:text-purple-light text-purple-dark no-underline px-3 py-2" href="{{ route('competitions.show', ['competition' => $competition, 'week' => $week]) }}">
+                            W<span class="hidden sm:inline">eek</span> {{ $week }}
+                        </a>
+                    </li>
                 @endif
             @endforeach
         </ul>

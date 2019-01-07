@@ -91,7 +91,11 @@ class CompetitionController extends Controller
 
         $labels = [];
         foreach (range(0, $competition->duration) as $week) {
-            $labels[] = $competition->starts_on->addWeeks($week)->toDateString();
+            $label = $competition->starts_on->addWeeks($week);
+            $labels[] = $label->toDateString();
+            if ($label->greaterThan(today())) {
+                break;
+            }
         }
 
         return view('competitions.show', [

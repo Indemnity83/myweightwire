@@ -48,7 +48,7 @@
                     @foreach($weighins as $weighin)
                     <tr>
                         <th scope="row">{{ $weighin->id }}</th>
-                        <td>{{ $weighin->weighed_at->diffForHumans() }}</td>
+                        <td>{{ $weighin->weighed_at->diff(now())->days < 1 ? 'today' : $weighin->weighed_at->diffForHumans(now(), true) . ' ago' }}</td>
                         <td>{{ $weighin->weight }} lbs</td>
                         @if($weighin->loss === null)
                             <td class="text-grey">&mdash;</td>

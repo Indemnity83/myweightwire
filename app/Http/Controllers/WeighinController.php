@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jobs\UpdateLossForWeighin;
 
 class WeighinController extends Controller
 {
@@ -54,11 +55,13 @@ class WeighinController extends Controller
             ],
         ]);
 
-        $request->user()->weighins()->updateOrCreate([
+        $weighin = $request->user()->weighins()->updateOrCreate([
             'weighed_at' => today(),
         ], [
             'weight' => $request->get('weight'),
         ]);
+
+        dispatch(new UpdateLossForWeighin($weighin));
 
         return redirect()->route('weighins.index');
     }

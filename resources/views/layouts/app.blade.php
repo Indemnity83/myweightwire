@@ -23,7 +23,7 @@
 <body class="font-sans antialiased text-black leading-tight bg-grey-lightest">
 <div id="app">
 
-    <navigation>
+    <navigation class="shadow">
         <div class="sm:flex-grow">
             <a href="{{ route('competitions.index') }}" class="no-underline block mt-4 sm:inline-block sm:mt-0 text-grey-dark hover:text-grey-darker mr-4">
                 Competitions
@@ -45,7 +45,7 @@
                     </label>
                     <input class="w-20 appearance-none border rounded py-2 px-2 text-grey-darker leading-tight focus:outline-none" id="weight" type="number" step="0.1" name="weight" value="{{ request()->user()->todaysWeight }}">
                 </div>
-                <button class="bg-purple-dark hover:bg-purple text-white font-bold py-2 px-4 rounded focus:outline-none" type="submit">
+                <button class="bg-purple-light hover:bg-purple-lighter text-white font-bold py-2 px-4 rounded focus:outline-none" type="submit">
                     Weighin
                 </button>
             </form>

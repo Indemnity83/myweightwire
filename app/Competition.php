@@ -80,6 +80,25 @@ class Competition extends Model
     }
 
     /**
+     * The total pounds lost during the competition.
+     *
+     * @return mixed
+     */
+    public function getTotalPoundsLostAttribute()
+    {
+        return $this->users->reduce(function ($carry, $user) {
+            $initial = $user->weighins()->on($this->starts_on)->first();
+            $final = $user->weighins()->onOrBefore($this->ends_on)->first();
+
+            if ($initial === null || $final === null) {
+                return $carry;
+            }
+
+            return $carry += $initial->weight - $final->weight;
+        });
+    }
+
+    /**
      * Generate random matchups.
      *
      * @param null $seed

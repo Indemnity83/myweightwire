@@ -5,15 +5,6 @@
         <div class="w-full lg:w-1/3">
             <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mr-4" action="{{ route('weighins.store') }}" method="post">
                 @csrf
-                <div class="mb-4">
-                    <label class="block text-grey-darker text-sm font-bold mb-2" for="weighed_at">
-                        Date
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline {{ $errors->has('weighed_at') ? 'border-red mb-3' : '' }}" id="weighed_at" type="date" name="weighed_at" max="{{ now()->toDateString() }}" value="{{ old('weighed_at', today()->toDateString()) }}">
-                    @if ($errors->has('weighed_at'))
-                        <p class="text-red text-xs italic">{{ $errors->first('weighed_at') }}</p>
-                    @endif
-                </div>
                 <div class="mb-6">
                     <label class="block text-grey-darker text-sm font-bold mb-2" for="weight">
                         Weight
@@ -24,7 +15,7 @@
                     @endif
                 </div>
                 <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                    Record Weight
+                    Record Today's Weight
                 </button>
             </form>
         </div>

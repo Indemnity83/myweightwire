@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Weighin;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class WeighinController extends Controller
 {
@@ -48,13 +47,7 @@ class WeighinController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $this->validate($request, [
-            'weighed_at' => [
-                'required',
-                'date',
-                'before_or_equal:'.today()->addSeconds(86399)->toDateString(),
-                Rule::unique('weighins')->where('user_id', $request->user()->id),
-            ],
+        $this->validate($request, [
             'weight' => [
                 'required',
                 'numeric',
@@ -62,7 +55,11 @@ class WeighinController extends Controller
             ],
         ]);
 
-        $request->user()->weighins()->create($attributes);
+        $request->user()->weighins()->updateOrCreate([
+            'weighed_at' => today(),
+        ], [
+            'weight' => $request->get('weight'),
+        ]);
 
         return redirect()->route('weighins.index');
     }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Weighin;
 use Illuminate\Http\Request;
 
 class WeighinController extends Controller
@@ -60,22 +59,6 @@ class WeighinController extends Controller
         ], [
             'weight' => $request->get('weight'),
         ]);
-
-        return redirect()->route('weighins.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Weighin $weighin
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
-     */
-    public function destroy(Weighin $weighin)
-    {
-        $this->authorize('delete', $weighin);
-
-        $weighin->delete();
 
         return redirect()->route('weighins.index');
     }

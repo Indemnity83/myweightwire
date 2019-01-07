@@ -41,7 +41,6 @@
                         <th scope="col">Date</th>
                         <th scope="col">Weight</th>
                         <th scope="col">% Change</th>
-                        <th scope="col">&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,13 +56,6 @@
                         @else()
                             <td class="text-green-dark">{{ $weighin->loss }}%</td>
                         @endif
-                        <td class="text-right">
-                            <form method="post" action="{{ route('weighins.destroy', $weighin) }}">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="text-red-dark mx-2"><i class="fas fa-times-circle"></i></button>
-                            </form>
-                        </td>
                     </tr>
                     @endforeach
                     </tbody>

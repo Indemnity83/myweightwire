@@ -90,7 +90,7 @@ class CompetitionController extends Controller
         });
 
         $labels = [];
-        foreach (range(0, $competition->duration + 1) as $week) {
+        foreach (range(0, $competition->duration) as $week) {
             $labels[] = $competition->starts_on->addWeeks($week)->toDateString();
         }
 

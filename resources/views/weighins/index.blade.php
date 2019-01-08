@@ -15,18 +15,24 @@
         <li class="flex-1 w-full md:mr-4 mb-4">
             <div class="no-underline rounded text-center block text-purple bg-white shadow py-2 px-1">
                 <div class="px-6 py-4 text-left">
-                    <div class="text-grey-dark text-xl mb-2">Record Weigh-in</div>
+                    <div class="text-grey-dark text-xl mb-2">Today's Weigh-in</div>
                     <form class="flex mt-4 sm:mt-0" action="{{ route('weighins.store') }}" method="post">
                         @csrf
-                        <div class="mr-2">
+                        <div class="mr-2 w-full">
                             <label class="sr-only" for="weight">
                                 Weight
                             </label>
-                            <input class="w-20 appearance-none border rounded py-2 px-2 text-grey-darker leading-tight focus:outline-none" id="weight" type="number" step="0.1" name="weight" value="{{ request()->user()->todaysWeight }}">
+                            <input class="w-full appearance-none border rounded py-2 px-2 text-grey-darker leading-tight focus:outline-none" id="weight" type="number" step="0.1" name="weight" value="{{ request()->user()->todaysWeight }}">
                         </div>
-                        <button class="bg-purple-light hover:bg-purple-lighter text-white font-bold py-2 px-4 rounded focus:outline-none" type="submit">
-                            Weighin
-                        </button>
+                        @if(request()->user()->todaysWeight > 0)
+                            <button class="bg-purple-light hover:bg-purple-lighter text-white font-bold py-2 px-4 rounded focus:outline-none" type="submit">
+                                Update
+                            </button>
+                        @else
+                            <button class="bg-purple-light whitespace-no-wrap hover:bg-purple-lighter text-white font-bold py-2 px-4 rounded focus:outline-none" type="submit">
+                                Weigh-in
+                            </button>
+                        @endif
                     </form>
                 </div>
             </div>

@@ -36,20 +36,6 @@
             </a>
 
         </div>
-        <div>
-            <form class="flex mt-4 sm:mt-0" action="{{ route('weighins.store') }}" method="post">
-                @csrf
-                <div class="mr-2">
-                    <label class="sr-only" for="weight">
-                        Weight
-                    </label>
-                    <input class="w-20 appearance-none border rounded py-2 px-2 text-grey-darker leading-tight focus:outline-none" id="weight" type="number" step="0.1" name="weight" value="{{ request()->user()->todaysWeight }}">
-                </div>
-                <button class="bg-purple-light hover:bg-purple-lighter text-white font-bold py-2 px-4 rounded focus:outline-none" type="submit">
-                    Weighin
-                </button>
-            </form>
-        </div>
     </navigation>
 
     <form method="post" id="logoutForm" action="{{ route('logout') }}">

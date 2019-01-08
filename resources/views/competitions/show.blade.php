@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('body')
-    <ul class="list-reset flex mb-4 items-center">
-        <li class="flex-1 max-w-xs mr-4">
+    <ul class="list-reset flex flex-col md:flex-row items-center">
+        <li class="flex-1 w-full md:mr-4 mb-4">
             <div class="no-underline rounded text-center block text-purple bg-white shadow py-2 px-1">
                 <div class="px-6 py-4 text-left">
                     <div class="text-grey-dark text-xl mb-2">Total Weight Loss</div>
@@ -13,7 +13,7 @@
             </div>
         </li>
 
-        <li>
+        <li class="flex-1 w-full hidden md:inline md:mr-4 mb-4">
             <p class="text-grey">Send Kyle metric suggestions ...</p>
         </li>
     </ul>

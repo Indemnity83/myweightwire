@@ -10,7 +10,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property bool is_admin
+ * @property float totalPercentLoss
+ * @property float totalPoundsLoss
  * @property \Illuminate\Support\Carbon approved_at
+ * @property \Illuminate\Support\Collection weighins
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -113,6 +116,40 @@ class User extends Authenticatable implements MustVerifyEmail
         $todaysWeighin = $this->weighins()->on(today())->first();
 
         return optional($todaysWeighin)->weight;
+    }
+
+    /**
+     * The total pounds lost for the user.
+     *
+     * @return mixed
+     */
+    public function getTotalPoundsLostAttribute()
+    {
+        if ($this->weighins->count() < 2) {
+            return 0;
+        }
+
+        $initial = $this->weighins->first();
+        $final = $this->weighins->last();
+
+        return $initial->weight - $final->weight;
+    }
+
+    /**
+     * The total percent lost for the user.
+     *
+     * @return mixed
+     */
+    public function getTotalPercentLostAttribute()
+    {
+        if ($this->weighins->count() < 2) {
+            return 0;
+        }
+
+        $initial = $this->weighins->first();
+        $final = $this->weighins->last();
+
+        return percentChange($initial->weight, $final->weight, 2);
     }
 
     /**

@@ -65,7 +65,7 @@
         <div class="bg-white shadow-md rounded p-4">
             <line-chart
                 :chartdata='@json($chartdata)'
-                :options='{"responsive":true,"maintainAspectRatio":false,"legend":{"display":false},"scales":{"xAxes":[{"type":"time","distribution":"linear"}]}}'
+                :options='{"responsive":true,"maintainAspectRatio":false,"legend":{"display":false},"scales":{"xAxes":[{"type":"time","distribution":"linear","time":{"unit":"week"}}]}}'
             ></line-chart>
         </div>
     </div>

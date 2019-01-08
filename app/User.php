@@ -132,7 +132,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $initial = $this->weighins->first();
         $final = $this->weighins->last();
 
-        return $initial->weight - $final->weight;
+        return round($initial->weight - $final->weight, 1);
     }
 
     /**

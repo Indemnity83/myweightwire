@@ -86,7 +86,7 @@ class Competition extends Model
      */
     public function getTotalPoundsLostAttribute()
     {
-        return $this->users->reduce(function ($carry, $user) {
+        return round($this->users->reduce(function ($carry, $user) {
             $initial = $user->weighins()->on($this->starts_on)->first();
             $final = $user->weighins()->onOrBefore($this->ends_on)->first();
 
@@ -95,7 +95,7 @@ class Competition extends Model
             }
 
             return $carry += $initial->weight - $final->weight;
-        });
+        }), 1);
     }
 
     /**

@@ -36,37 +36,59 @@
         @endforeach
     </ul>
 
-    <div class="flex flex-col lg:flex-row justify-between">
-        <div class="w-full lg:w-2/5 bg-white shadow-md rounded mb-4 mr-6">
-            <span class="block p-4 w-full text-center text-2xl text-purple-dark">
-                Week {{ request()->query('week', $competition->currentWeek) }} Matchups
-            </span>
-            @foreach($matchups as $matchup)
-            <a href="{{ route('matchups.show', $matchup) }}" class="flex content-center justify-center mb-4 no-underline text-grey-darkest hover:bg-purple-lightest">
-                @foreach($matchup->users as $user)
-                    <div class="flex matchup m-4 w-2/5">
-                        <img class="mx-4" src="//gravatar.com/avatar/{{ md5($user->email) }}?s=50">
-                        <div class="flex flex-col">
-                            <span>{{ $user->name }}</span>
-                            @if($user->loss > 0)
-                                <span class="text-red-dark">Gained {{ abs($user->loss) }}%</span>
+    <div class="flex flex-col lg:flex-row items-top">
+        <div class="w-full lg:w-2/5 bg-white shadow-md rounded lg:mr-4 mb-4">
+            <div class="text-grey-dark text-xl my-4 mx-6">Week {{ request()->query('week', $competition->currentWeek) }} Matchups</div>
+            <div class="flex flex-col">
+                @foreach($matchups as $matchup)
+                <a href="{{ route('matchups.show', $matchup) }}" class="flex w-full justify-center items-center no-underline text-grey-darkest hover:bg-grey-lightest border-t border-b border-white hover:border-purple-dark py-4">
+                    @if($matchup->users->count() >= 2)
+                        <div class="flex items-center">
+                            <div class="flex flex-col text-right">
+                                <span>{{ $matchup->users->first()->name }}</span>
+                                @if($matchup->users->first()->loss > 0)
+                                    <span class="text-red-dark">Gained {{ abs($matchup->users->first()->loss) }}%</span>
+                                @else
+                                    <span class="text-green-dark">Lost {{ abs($matchup->users->first()->loss) }}%</span>
+                                @endif
+                            </div>
+                            <img class="ml-4" src="//gravatar.com/avatar/{{ md5($matchup->users->first()->email) }}?s=60">
+                        </div>
+                        <div class="px-4 text-grey-light">VS</div>
+                        <div class="flex items-center">
+                            <img class="mr-4" src="//gravatar.com/avatar/{{ md5($matchup->users->last()->email) }}?s=60">
+                            <div class="flex flex-col">
+                                <span>{{ $matchup->users->last()->name }}</span>
+                                @if($matchup->users->last()->loss > 0)
+                                    <span class="text-red-dark">Gained {{ abs($matchup->users->last()->loss) }}%</span>
+                                @else
+                                    <span class="text-green-dark">Lost {{ abs($matchup->users->last()->loss) }}%</span>
+                                @endif
+                            </div>
+                        </div>
+                    @else
+                        <div class="flex flex-col items-center">
+                            <span class="text-grey mb-2">Bye Week</span>
+                            <div class="flex items-center">
+                                <img class="mr-1" src="//gravatar.com/avatar/{{ md5($matchup->users->last()->email) }}?s=25">
+                                <span>{{ $matchup->users->last()->name }}</span>
+                            </div>
+                            @if($matchup->users->last()->loss > 0)
+                                <span class="text-red-dark">Gained {{ abs($matchup->users->last()->loss) }}%</span>
                             @else
-                                <span class="text-green-dark">Lost {{ abs($user->loss) }}%</span>
+                                <span class="text-green-dark">Lost {{ abs($matchup->users->last()->loss) }}%</span>
                             @endif
                         </div>
-                    </div>
-                    @endforeach
-            </a>
-            @endforeach
+                    @endif
+                </a>
+                @endforeach
+            </div>
         </div>
-
-        <div class="w-full lg:w-3/5 bg-white shadow-md rounded flex flex-col mb-4 items-center">
-            <span class="block p-4 w-full text-center text-2xl text-purple-dark">
-                Percent Loss Over Time
-            </span>
+        <div class="flex-1 w-full bg-white shadow-md rounded mb-4 px-6 py-4 ">
+            <div class="text-grey-dark text-xl mb-4">Percent Loss Over Time</div>
             <line-chart class="w-full"
-                :chartdata='@json($chartdata)'
-                :options='{"tooltips": {"callbacks":{"label": (item) => item.yLabel + "%"}}, "responsive":true,"maintainAspectRatio":false,"legend":{"position":"bottom", "labels": {"boxWidth": 12, "padding": 12}},"scales":{"yAxes":[{"ticks": {"callback": (value) => value + "%"}}], "xAxes":[{"type":"time","distribution":"linear","time":{"unit":"week"},"ticks":{"source":"labels"}}]}}'
+                        :chartdata='@json($chartdata)'
+                        :options='{"tooltips": {"callbacks":{"label": (item) => item.yLabel + "%"}}, "responsive":true,"maintainAspectRatio":false,"legend":{"position":"bottom", "labels": {"boxWidth": 12, "padding": 12}},"scales":{"yAxes":[{"ticks": {"callback": (value) => value + "%"}}], "xAxes":[{"type":"time","distribution":"linear","time":{"unit":"week"},"ticks":{"source":"labels"}}]}}'
             ></line-chart>
         </div>
     </div>

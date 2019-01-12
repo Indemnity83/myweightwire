@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
 use App\Nova\Actions\UpdateLoss;
+use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\BelongsTo;
 
 class Weighin extends Resource
@@ -52,9 +53,8 @@ class Weighin extends Resource
             Date::make('Weighed At')
                 ->rules(['required', 'date']),
 
-            Number::make('Weight')
-                ->rules(['required', 'numeric', 'between:100,300'])
-                ->step(0.1),
+            Password::make('Weight')
+                ->rules(['required', 'numeric', 'between:100,300']),
 
             Number::make('Loss')
                 ->exceptOnForms(),

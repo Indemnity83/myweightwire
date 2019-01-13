@@ -72,9 +72,9 @@ class Competition extends Model
      *
      * @return int
      */
-    public function getCurrentWeekAttribute()
+    public function getCurrentWeekAttribute()``
     {
-        $week = $this->starts_on->diffInWeeks(today());
+        $week = $this->starts_on->diffInWeeks(today()->subDay()) + 1;
 
         return min($week, $this->duration);
     }

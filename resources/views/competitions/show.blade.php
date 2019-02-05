@@ -2,7 +2,7 @@
 
 @section('body')
     <ul class="list-reset flex flex-col md:flex-row items-center">
-        <li class="flex-1 w-full md:mr-4 mb-4">
+        <li class="md:w-1/3 w-full md:mr-4 mb-4">
             <div class="no-underline rounded text-center block text-purple bg-white shadow py-2 px-1">
                 <div class="px-6 py-4 text-left">
                     <div class="text-grey-dark text-xl mb-2">Total Weight Loss</div>
@@ -13,8 +13,44 @@
             </div>
         </li>
 
-        <li class="flex-1 w-full hidden md:inline md:mr-4 mb-4">
-            <p class="text-grey">Send Kyle metric suggestions ...</p>
+        <li class="md:w-2/3 w-full mb-4">
+            <div class="no-underline rounded block text-purple bg-white shadow py-2 px-1">
+                <div class="px-6 py-4 text-left">
+                    <div class="text-grey-dark text-xl mb-2">Leaderboard</div>
+                    <ul class="text-purple-dark text-2xl list-reset flex">
+                        <li class="flex-1 w-50 text-center group">
+                            <div class="flex justify-center">
+                                <div class="flex flex-col text-sm mr-2 text-gold">
+                                    <i class="fas fa-trophy"></i>
+                                    <small>$400</small>
+                                </div>
+                                <span class="block group-hover:hidden">{{ $leaders[0]['name'] }}</span>
+                                <span class="hidden group-hover:block">{{ $leaders[0]['loss'] }}%</span>
+                            </div>
+                        </li>
+                        <li class="flex-1 w-50 text-center group">
+                            <div class="flex justify-center">
+                                <div class="flex flex-col text-sm mr-2 text-silver">
+                                    <i class="fas fa-trophy"></i>
+                                    <small>$200</small>
+                                </div>
+                                <span class="block group-hover:hidden">{{ $leaders[1]['name'] }}</span>
+                                <span class="hidden group-hover:block">{{ $leaders[1]['loss'] }}%</span>
+                            </div>
+                        </li>
+                        <li class="flex-1 w-50 text-center group">
+                            <div class="flex justify-center">
+                                <div class="flex flex-col text-sm mr-2 text-bronze">
+                                    <i class="fas fa-trophy"></i>
+                                    <small>$100</small>
+                                </div>
+                                <span class="block group-hover:hidden">{{ $leaders[2]['name'] }}</span>
+                                <span class="hidden group-hover:block">{{ $leaders[2]['loss'] }}%</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </li>
     </ul>
 

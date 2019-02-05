@@ -40,6 +40,10 @@ View the full documentation at https://tailwindcss.com.
 let colors = {
     'transparent': 'transparent',
 
+    'gold': '#D6AF36',
+    'silver': '#A7A7AD',
+    'bronze': '#A77044',
+
     'black': '#22292f',
     'grey-darkest': '#3d4852',
     'grey-darker': '#606f7b',
@@ -867,7 +871,7 @@ module.exports = {
         borderStyle: ['responsive'],
         borderWidths: ['responsive'],
         cursor: ['responsive'],
-        display: ['responsive'],
+        display: ['responsive', 'group-hover'],
         flexbox: ['responsive'],
         float: ['responsive'],
         fonts: ['responsive'],

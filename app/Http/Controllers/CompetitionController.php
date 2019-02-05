@@ -98,6 +98,15 @@ class CompetitionController extends Controller
             }
         }
 
+        $leaders = $competition->users->load(['weighins' => function ($query) use ($competition) {
+            $query->between($competition->starts_on, $competition->ends_on);
+        }])->map(function ($user) {
+            return [
+                'name' => $user->name,
+                'loss' => percentChange($user->weighins->first()->weight, $user->weighins->last()->weight, 2) * -1,
+            ];
+        })->sortByDesc('loss')->values();
+
         return view('competitions.show', [
             'competition' => $competition,
             'chartdata' => [
@@ -105,6 +114,7 @@ class CompetitionController extends Controller
                 'datasets' => $datasets,
             ],
             'matchups' => $matchups,
+            'leaders' => $leaders,
         ]);
     }
 

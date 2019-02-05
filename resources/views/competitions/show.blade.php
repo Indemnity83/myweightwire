@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('body')
-    <ul class="list-reset flex flex-col md:flex-row items-center">
+    <ul class="list-reset flex flex-col md:flex-row">
         <li class="md:w-1/3 w-full md:mr-4 mb-4">
-            <div class="no-underline rounded text-center block text-purple bg-white shadow py-2 px-1">
+            <div class="no-underline rounded text-center block text-purple bg-white shadow py-2 px-1 h-full">
                 <div class="px-6 py-4 text-left">
                     <div class="text-grey-dark text-xl mb-2">Total Weight Loss</div>
                     <p class="text-purple-dark text-2xl">
@@ -54,6 +54,23 @@
         </li>
     </ul>
 
+    <ul class="list-reset flex flex-col md:flex-row">
+        <li class="w-full mb-4">
+            <div class="no-underline rounded text-center block text-purple bg-white shadow py-2 px-1 h-full">
+                <div class="px-6 py-4 text-left">
+                    <div class="text-grey-dark text-xl mb-4">Neallykart</div>
+                    <div style="height:30px;">
+                        @foreach($leaders as $leader)
+                            <div class="text-right -m-px h-px" style="width: {{ $leader['loss'] / $leaders[0]['loss'] * 100 }}%">
+                                <img alt="{{ $leader->name }}" src="//gravatar.com/avatar/{{ md5($leader->email) }}?s=30&d=robohash">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
     <ul class="list-reset flex mb-4">
         @foreach(range(1, $competition->duration) as $week)
             @if(request()->query('week', $competition->currentWeek) == $week)
@@ -88,11 +105,11 @@
                                     <span class="text-green-dark">Lost {{ abs($matchup->users->first()->loss) }}%</span>
                                 @endif
                             </div>
-                            <img class="ml-4" src="//gravatar.com/avatar/{{ md5($matchup->users->first()->email) }}?s=60">
+                            <img class="ml-4" src="//gravatar.com/avatar/{{ md5($matchup->users->first()->email) }}?s=60&d=robohash">
                         </div>
                         <div class="px-4 text-grey-light">VS</div>
                         <div class="flex items-center">
-                            <img class="mr-4" src="//gravatar.com/avatar/{{ md5($matchup->users->last()->email) }}?s=60">
+                            <img class="mr-4" src="//gravatar.com/avatar/{{ md5($matchup->users->last()->email) }}?s=60&d=robohash">
                             <div class="flex flex-col">
                                 <span>{{ $matchup->users->last()->name }}</span>
                                 @if($matchup->users->last()->loss > 0)
@@ -106,7 +123,7 @@
                         <div class="flex flex-col items-center">
                             <span class="text-grey mb-2">Bye Week</span>
                             <div class="flex items-center">
-                                <img class="mr-1" src="//gravatar.com/avatar/{{ md5($matchup->users->last()->email) }}?s=25">
+                                <img class="mr-1" src="//gravatar.com/avatar/{{ md5($matchup->users->last()->email) }}?s=25&d=robohash">
                                 <span>{{ $matchup->users->last()->name }}</span>
                             </div>
                             @if($matchup->users->last()->loss > 0)

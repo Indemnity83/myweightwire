@@ -109,6 +109,20 @@ class Weighin extends Model
     }
 
     /**
+     * Limit query dates on or after given date.
+     *
+     * @param Builder $query
+     * @param $weighed_at
+     * @return Builder|\Illuminate\Database\Query\Builder
+     */
+    public function scopeOnOrAfter(Builder $query, $weighed_at)
+    {
+        return $query->whereDate('weighed_at', '>=', $weighed_at)
+            ->withoutGlobalScope('order')
+            ->orderBy('weighed_at', 'asc');
+    }
+
+    /**
      * Limit query dates between (inclusive) two dates.
      *
      * @param Builder $query

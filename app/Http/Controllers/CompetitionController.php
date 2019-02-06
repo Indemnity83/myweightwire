@@ -61,7 +61,7 @@ class CompetitionController extends Controller
 
         $matchups->map(function ($matchup) {
             return $matchup->users->map(function ($user) use ($matchup) {
-                $initial = optional($user->weighins()->on($matchup->starts_on)->first())->weight;
+                $initial = optional($user->weighins()->onOrAfter($matchup->starts_on)->first())->weight;
                 $final = optional($user->weighins()->onOrBefore($matchup->ends_on)->first())->weight;
                 $user->loss = percentChange($initial, $final, 2);
 

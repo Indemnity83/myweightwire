@@ -96,7 +96,7 @@
                 @foreach($matchups as $matchup)
                 <a href="{{ route('matchups.show', $matchup) }}" class="flex w-full justify-center items-center no-underline text-grey-darkest hover:bg-grey-lightest border-t border-b border-white hover:border-purple-dark py-4">
                     @if($matchup->users->count() >= 2)
-                        <div class="flex items-center">
+                        <div class="flex items-center w-2/5 justify-end">
                             <div class="flex flex-col text-right">
                                 <span>{{ $matchup->users->first()->name }}</span>
                                 @if($matchup->users->first()->loss > 0)
@@ -108,7 +108,7 @@
                             <img class="ml-4" src="//gravatar.com/avatar/{{ md5($matchup->users->first()->email) }}?s=60&d=robohash">
                         </div>
                         <div class="px-4 text-grey-light">VS</div>
-                        <div class="flex items-center">
+                        <div class="flex items-center w-2/5">
                             <img class="mr-4" src="//gravatar.com/avatar/{{ md5($matchup->users->last()->email) }}?s=60&d=robohash">
                             <div class="flex flex-col">
                                 <span>{{ $matchup->users->last()->name }}</span>

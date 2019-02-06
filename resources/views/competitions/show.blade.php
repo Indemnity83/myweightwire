@@ -59,10 +59,12 @@
             <div class="no-underline rounded text-center block text-purple bg-white shadow py-2 px-1 h-full">
                 <div class="px-6 py-4 text-left">
                     <div class="text-grey-dark text-xl mb-4">Neallykart</div>
-                    <div style="height:30px;">
+                    <div style="height:45px;">
                         @foreach($leaders as $leader)
                             <div class="text-right -m-px h-px" style="width: {{ $leader['loss'] / $leaders[0]['loss'] * 100 }}%">
                                 <img alt="{{ $leader->name }}" src="//gravatar.com/avatar/{{ md5($leader->email) }}?s=30&d=robohash">
+                                <br />
+                                <small>{{ $leader->loss }}%</small>
                             </div>
                         @endforeach
                     </div>

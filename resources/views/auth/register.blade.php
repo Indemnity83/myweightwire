@@ -48,6 +48,11 @@
                 </div>
 
                 <div class="mb-4">
+                    <div class="g-recaptcha" data-sitekey="{{config('services.recaptcha.sitekey')}}"></div>
+                    {!! $errors->first('g-recaptcha-response', '<p class="text-red text-xs italic">:message</p>') !!}
+                </div>
+
+                <div class="mb-4">
                     <label class="block text-grey-darker text-sm font-bold mb-2">
                         <span class="text-sm">
                         By clicking Register, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
